@@ -1,0 +1,37 @@
+<HTML>
+
+<head>
+    <meta charset="utf-8">
+    <script src="script.js"></script>
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <header align="center">Калькулятор показателя комфортности озелененной территории</header>
+    <table align="center" id="table">
+        <tr>
+            <td>
+                <div><select class="tablePark" id="tablePark">
+                        <option disabled selected="selected">Выберите парк</option>
+                        <option value="kosmonavtov">Парк Космонавтов</option>
+                        <option value="gorkovo">Парк им. Горького</option>
+                        <option value="kirova">Парк им. Кирова</option>
+                    </select></div>
+            </td>
+        </tr>
+        <td>
+            <textarea id="noiselevel" required placeholder="Уровень шума в дБА"></textarea>
+            <textarea id="square" required placeholder="Площадь территории в га"></textarea>
+            <div><select class="tableProtstrip" id="protstrip">
+                    <option disabled selected="selected">Имеется ли защитная полоса?</option>
+                    <option value="1">Да</option>
+                    <option value="0">Нет</option>
+                </select></div>
+        </td>
+    </table>
+    <div><button onclick="giveAnswerUser()">Посчитать показатель комфортности территории</button> </div>
+    <textarea readonly id="result">Результат здесь</textarea>
+    <br><textarea readonly id="resultText">Уровень благоустройства</textarea></br>
+</body>
+
+</HTML>
