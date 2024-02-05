@@ -19,11 +19,49 @@ var parks_dict = new Map([
 window.onload = function () {
     document.getElementById("tablePark").addEventListener("change", giveAnswerPreset);
     document.getElementById("protstrip").addEventListener("change", giveAnswerUser);
+
+    YAmap = initYAMap();
 }
 
-function giveAnswerPreset() {
-    let chosenpark = document.getElementById("tablePark").value;
-    let parkinfo = parks_dict.get(chosenpark)
+function initYAMap() {
+    // Как только будет загружен API и готов DOM, выполняем инициализацию
+    ymaps.ready(init);
+
+    function init() {
+        var myMap = new ymaps.Map("map", {
+            center: [56.8498, 53.2045],
+            zoom: 15
+        }),
+            // Создаем многоугольник
+            KosmonavtovPark = new ymaps.Polygon([[
+                // Координаты вершин
+                [56.888710, 53.246800],
+                [56.886905, 53.248001],
+                [56.886811, 53.248302],
+                [56.886905, 53.250662],
+                [56.887186, 53.252464],
+                [56.887257, 53.252486],
+                [56.889496, 53.251434],
+            ]]);
+            KosmonavtovPark.events.add('click', function () {
+            giveAnswer('kosmonavtov');
+
+            //ПОЛИГОН2
+            //ДОБАВИТЬ ИВЕНТ
+
+            //ПОЛИГОН3
+            //ДОБАВИТЬ ИВЕНТ
+        });
+        myMap.geoObjects.add(KosmonavtovPark);
+        //myMap.geoObjects.add(KosmonavtovPark);
+        //myMap.geoObjects.add(KosmonavtovPark);
+    }
+    return ymaps;
+}
+
+//Берем ответ, основываясь на словаре
+function giveAnswer(chosenpark){
+    let parkinfo = parks_dict.get(chosenpark);
 
     let noiselevel = parkinfo.get("noiselevel");
     let square = parkinfo.get("square");
@@ -36,6 +74,13 @@ function giveAnswerPreset() {
     showAnswer(noiselevel, square, protstrip);
 }
 
+//Сначала читаем то, что в элементе-списке с выбором, потом обращаемся к словарю за ответом
+function giveAnswerPreset() {
+    let chosenpark = document.getElementById("tablePark").value;
+    giveAnswer(chosenpark);
+}
+
+//Берем значения из полей (предполож заполнено юзером)
 function giveAnswerUser() {
     let noiselevel = document.getElementById("noiselevel").value;
     let square = document.getElementById("square").value;
