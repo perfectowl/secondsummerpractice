@@ -33,8 +33,8 @@ function initYAMap() {
             zoom: 15
         }),
             // Создаем многоугольник
-            KosmonavtovPark = new ymaps.Polygon([[
-                // Координаты вершин
+        KosmonavtovPark = new ymaps.Polygon([[
+            // Координаты вершин
             [56.88825273596357, 53.24672451358026],
             [56.88775942856213, 53.247089294006315],
             [56.88764197345519, 53.24738970141595],
@@ -53,10 +53,12 @@ function initYAMap() {
             [56.888346698536814, 53.2529257808227],
             [56.888276226629124, 53.252282050659126],
             [56.88903966518834, 53.25157394747918],
-            ]]);
-            KosmonavtovPark.events.add('click', function () {
+        ]]);
+        KosmonavtovPark.events.add('click', function () {
             giveAnswer('kosmonavtov');
+
         });
+
         GorkovoPark = new ymaps.Polygon([[
             [56.8488365960892, 53.198156160049365],
             [56.848419192817616, 53.19816688888542],
@@ -110,7 +112,7 @@ function initYAMap() {
 }
 
 //Берем ответ, основываясь на словаре
-function giveAnswer(chosenpark){
+function giveAnswer(chosenpark) {
     let parkinfo = parks_dict.get(chosenpark);
 
     let noiselevel = parkinfo.get("noiselevel");
@@ -138,12 +140,13 @@ function giveAnswerUser() {
 
     showAnswer(noiselevel, square, protstrip);
 }
+
 function showAnswer(noiselevel, square, protstrip) {
     let result = 0.32 + 0.008 * parseFloat(noiselevel) - 0.0006 * parseFloat(square) - 0.088 * parseFloat(protstrip);
     //console.log("Значение коэффициента K: " + K);
     document.getElementById("result").value = result;
     //console.log(result);
-    let resultText = "ДЕФОЛТ";
+    let resultText = "Введите данные";
     switch (true) {
         case result >= 0 && result < 0.26:
             resultText = "Весьма благоприятный";
@@ -160,25 +163,3 @@ function showAnswer(noiselevel, square, protstrip) {
     }
     document.getElementById("resultText").value = resultText;
 }
-
-
-/* Array.from() - массив из массивоподобных объектов, типа arguments, NodeList
-
-Парк Космонавтов:
-noiselevel: 50 дБА
-square: 9 га
-protstrip: 1
-
-Парк им. Горького
-noiselevel: 70 дБА
-square: 4 га
-protstrip: 0
-
-Парк им. Кирова
-noiselevel: 40 дБА
-square: 85 га
-protstrip: 1
-
-
-
-document*/
